@@ -69,7 +69,7 @@ WriteResult({ "nInserted" : 1 })
         ]
 }
 ```
-Actualizar películas agregando el field highlighted=true a aquellas con rating > 4.5.
+Actualizar películas agregando el field highlighted=true a aquellas con rating > 4.5.  
 ```
 > db.movies.updateMany(
 ...         {rating :{$gt: 4.5}},
@@ -82,7 +82,33 @@ Actualizar películas agregando el field highlighted=true a aquellas con rating 
 ...     )
 { "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
 ```
-Actualizar películas cambiando el genre “drama” por “bored”.
-Borrar todas las películas que tengan más de 30 años.
-Buscar todas las películas argentinas.
-Buscar todas las películas de acción con un buen rating (ej. > 4.0) que hayan salido los últimos 2 años.
+Actualizar películas cambiando el genre “drama” por “bored”.  
+```
+> db.movies.updateMany(
+...     { genre: "Drama" },
+...     {
+...     $set: {
+...         genre: "Bored"
+...     }
+... })
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+```
+Borrar todas las películas que tengan más de 30 años.  
+```
+> db.movies.deleteMany({year: {$lt: 2020 - 30 }})
+{ "acknowledged" : true, "deletedCount" : 1 }
+```
+Buscar todas las películas argentinas.  
+```
+> db.movies.find({country: "Argentina"})
+{ "_id" : ObjectId("5f9aafb6be805f50cbd3e75d"), "title" : "Un cuento chino", "year" : 2011, "rating" : 4.5, "genre" : "Comedia Dramatica", "description" : "Roberto es un hombre triste, solitario y gruñón. Se pasa la vida entre su casa y su trabajo como ferretero,que para él es como decir que se pasa la vida entre las mismas cuatro paredes.", "actors" : [ "Ricardo Darín", "Muriel Santa Ana", "Ignacio Huang" ], "country" : "Argentina", "income" : 5000000, "duration" : "1h 30m" }
+```
+Buscar todas las películas de acción con un buen rating (ej. > 4.0) que hayan salido los últimos 2 años.  
+```
+> db.movies.find({genre: "Accion",rating: {$gt: 4.0},year:{$gte: 2020 - 2}})
+```
+Realizo una prueba a 5 años para encontrar un resultado
+```
+> db.movies.find({genre: "Accion",rating: {$gt: 4.0},year:{$gte: 2020 - 5}})
+{ "_id" : ObjectId("5f9a35b2be805f50cbd3e758"), "title" : "Rapidos y Furiosos 8", "year" : 2017, "rating" : 4.4, "genre" : "Accion", "description" : "Con Dom y Letty de luna de miel, Brian y Mia retirados y el resto de la pandilla viviendo en paz, parece que todo está tranquilo. Sin embargo, una misteriosa mujer seducirá a Dom para adentrarlo en el mundo del crimen y traicionar a la pandilla.", "actors" : [ "Vin Diesel", "Dwayne Johnson", "Jason Statham", "Charlize Theron" ], "country" : "EEUU", "income" : 1239000000, "duration" : "1h 57m" }
+```
