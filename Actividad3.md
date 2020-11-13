@@ -1,7 +1,7 @@
 Utilizar la misma base de datos de películas e insertar varias
 películas con distinto contenido.
 
-'''
+```
 db.movies.insertMany ([
     {
         title: "Emma",
@@ -92,32 +92,32 @@ db.movies.insertMany ([
         duration: "2h 5m"
     }
 ])
-'''
+```
 
 Listar todas las películas del año 2018.
-'''
+```
 db.movies.find({year: 2018})
-'''
+```
 Listar las 10 primeras películas de Hollywood.
-'''
+```
 db.movies.find({country: "EEUU"}).limit(10)
-'''
+```
 Listar las 5 películas más taquilleras.
-'''
+```
 db.movies.find().sort({ income: -1}).limit(5)
-'''
+```
 Listar el 2do conjunto de 5 películas más taquilleras.
-'''
+```
 db.movies.find().sort({ income: -1}).skip(5).limit(5)
-'''
+```
 Repetir query 3 y 4 pero retornando sólo el título y genre.
-'''
+```
 db.movies.find({country: "EEUU"}, {title:1,genre:1}).sort({ year: 1}).limit(10)
-'''
-'''
+```
+```
 db.movies.find({}, {title:1,genre:1}).sort({ income: -1}).limit(5)
-'''
+```
 Mostrar los distintos países que existen en la base de datos.
-'''
+```
 db.movies.distinct("country")
-'''
+```
