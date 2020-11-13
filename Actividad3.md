@@ -1,5 +1,6 @@
 Utilizar la misma base de datos de películas e insertar varias
 películas con distinto contenido.
+
 '''
 db.movies.insertMany ([
     {
@@ -92,6 +93,7 @@ db.movies.insertMany ([
     }
 ])
 '''
+
 Listar todas las películas del año 2018.
 '''
 db.movies.find({year: 2018})
