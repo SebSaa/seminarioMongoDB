@@ -170,7 +170,37 @@ Utilizar la misma base de datos de películas e insertar varias películas (al m
 ```
 Crear índice en field rating y luego hacer búsquedas usando este campo.  
 ```
+db.movies.createIndex({rating: 1})
+```
+  Obtengo los index 
+```
+> db.movies.getIndexes()
+[
+        {
+                "v" : 2,
+                "key" : {
+                        "_id" : 1
+                },
+                "name" : "_id_"
+        },
+        {
+                "v" : 2,
+                "key" : {
+                        "rating" : 1
+                },
+                "name" : "rating_1"
+        }
+]
+```
+  Consulta 
+```
+
+```
+  Elimino el index creado  
+```
+db.movies.dropIndex({rating: 1})
 ```
 Crear índice en title y description, y después hacer búsquedas de texto en estos campos.  
 ```
+db.movies.createIndex({title: 1,descripcion:1})
 ```
